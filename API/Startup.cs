@@ -45,8 +45,11 @@ namespace API
                 // "ConnectionStrings" is defined in appsettings.Development.json
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddCors();
         }
 
+        // Ordering is IMPORTANT!!!!!
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -59,7 +62,11 @@ namespace API
 
             app.UseHttpsRedirection();
 
+            // must be followed by UseEndpoints()
             app.UseRouting();
+
+            // UseCors() must be added between UseRouting() and UseEndpoints()
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
