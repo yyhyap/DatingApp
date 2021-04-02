@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
 
@@ -20,6 +20,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         // ActionResult<> >>> TYPE of thing that going to RETURN
         // IEnumerable >>> Collection, allow to use simple iteration over a collection of specified type, READ ONLY
@@ -37,6 +38,7 @@ namespace API.Controllers
             // return _context.Users.ToList();
         }
 
+        [Authorize]
         // api/users/1
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
