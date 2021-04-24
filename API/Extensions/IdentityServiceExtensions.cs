@@ -22,7 +22,7 @@ namespace API.Extensions
                     {
                         // server is going to sign the token, and we need to tell it to validate this token is CORRECT
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
                         // issuer of the token >>> API server
                         ValidateIssuer = false,
                         // audience >>> Angular application
