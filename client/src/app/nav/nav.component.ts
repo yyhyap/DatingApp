@@ -42,7 +42,9 @@ export class NavComponent implements OnInit {
 
       Need to use error.error to get error message
       */
-      this.toastr.error(error.error);
+
+      // handled by error interceptor
+      //this.toastr.error(error.error);
     });
   }
 
